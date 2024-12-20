@@ -8,11 +8,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
-
-
-
-
-
 # Function to create the dynamic plot (pendulum motion)
 def animate(i):
     # Clear the previous frame
