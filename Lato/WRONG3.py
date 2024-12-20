@@ -4,6 +4,14 @@ ModuleNotFoundError: No module named 'IPython'
 
 # Re-importing necessary libraries for animation in case of any reset
 from IPython.display import HTML
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
+
+
+
+
+
 
 # Function to create the dynamic plot (pendulum motion)
 def animate(i):
