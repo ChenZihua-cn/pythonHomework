@@ -1,6 +1,24 @@
+"""
+Traceback (most recent call last):
+  File "d:\Code\PY\Lato\simulated2.py", line 45, in <module>
+    ani = animation.FuncAnimation(fig, update, frames=len(t), init_func=init, blit=True, interval=30)
+                                                          ^
+NameError: name 't' is not defined
+"""
+
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 import numpy as np
+
+# Parameters
+g = 9.8  # gravitational acceleration (m/s^2)
+L = 1.0  # length of the string (m)
+A = 0.1  # amplitude of pivot oscillation (m)
+omega = 2.0  # angular frequency of the pivot oscillation (rad/s)
+m1, m2 = 0.1, 0.1  # masses of the two balls (kg)
+damping = 0.01  # damping factor for energy loss
+time_steps = 300  # number of frames for animation
+dt = 0.05  # time step size
 
 # Time range for simulation
 t_span = (0, 10)  # 10 seconds

@@ -1,3 +1,7 @@
+"""
+不知道什么东西,输出了个图片
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp

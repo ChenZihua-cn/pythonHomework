@@ -1,9 +1,13 @@
+"""
+只有一个球看上去可以用的图片
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 
 # Constants
-m = 1.0  # mass of the ball (kg)
+m =1.0  # mass of the ball (kg)
 g = 9.81  # gravitational acceleration (m/s^2)
 omega = 2.0  # angular velocity (rad/s)
 r_initial = 1.0  # initial radius (m)

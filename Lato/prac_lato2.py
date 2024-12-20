@@ -1,3 +1,7 @@
+"""
+较为成功的代码,刚性绳子,球不会穿模
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
@@ -5,6 +9,7 @@ from matplotlib.animation import FuncAnimation
 # Parameters for the system
 length = 1.0           # Length of the strings (meters)
 mass = 0.1             # Mass of each ball (kg)
+radius = 0.05          # Radius of each ball (meters)
 g = 9.81               # Gravitational acceleration (m/s^2)
 pivot_amp = 0.2        # Amplitude of the pivot oscillation (meters)
 pivot_freq = 2.0       # Frequency of the pivot oscillation (Hz)
@@ -30,14 +35,25 @@ def derivatives(t, theta1, theta2, omega1, omega2):
     
     return omega1, omega2, alpha1, alpha2
 
-# Integrate the equations of motion using Euler's method
+# Integrate the equations of motion using Euler's method and detect collisions
 def update_positions(t, theta1, theta2, omega1, omega2):
+    # Calculate new velocities and positions
     omega1_new, omega2_new, alpha1, alpha2 = derivatives(t, theta1, theta2, omega1, omega2)
     omega1 += alpha1 * time_step
     omega2 += alpha2 * time_step
     theta1 += omega1 * time_step
     theta2 += omega2 * time_step
     
+    # Calculate the positions of the balls
+    x1, y1 = length * np.sin(theta1), -length * np.cos(theta1) + pivot_position(t)
+    x2, y2 = length * np.sin(theta2), -length * np.cos(theta2) + pivot_position(t)
+    
+    # Check for collision between the balls
+    distance = np.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+    if distance <= 2 * radius:  # Assuming a "collision distance" of twice the radius
+        # Elastic collision formulas for angular velocities
+        omega1, omega2 = omega2, omega1  # Swap velocities for simple elastic collision
+        
     return theta1, theta2, omega1, omega2
 
 # Animation setup

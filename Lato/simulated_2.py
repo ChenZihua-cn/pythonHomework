@@ -1,3 +1,8 @@
+"""
+生成了一个图片,但是并没有考虑绳子弹性,并且只有一个球
+微分方程是（角度的二阶导）+(固有频率^2) * (角度) = (A * omega^2 / L) * sin(omega * t)
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
