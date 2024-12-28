@@ -7,7 +7,7 @@ m = 1.0  # Mass (kg)
 k = 10.0  # Spring constant (N/m)
 L0 = 1.0  # Natural length of springs (m)
 g = 9.8  # Gravity (m/s^2)
-F0 = 1.0  # External force amplitude (N)
+F0 = 10.0  # External force amplitude (N)
 omega = 1.0  # Frequency of external force (rad/s)
 t_max = 20  # Simulation time (s)
 dt = 0.01  # Time step (s)
@@ -40,8 +40,8 @@ def equations_of_motion(state, t):
     F_ext = F0 * np.cos(omega * t)  # External force in x-direction
 
     # Accelerations
-    ax = (Fx_spring + F_ext) / m
-    ay = (Fy_spring - m * g) / m
+    ax = (Fx_spring) / m
+    ay = (Fy_spring+ F_ext - m * g) / m
     
     return [vx, vy, ax, ay]
 
@@ -58,7 +58,7 @@ x, y = solve_ode()
 # Visualization with Animation
 fig, ax = plt.subplots()
 ax.set_xlim(-2, 2)
-ax.set_ylim(-2, 0)
+ax.set_ylim(-5, 0)
 ax.set_aspect('equal')
 ax.grid(True)
 

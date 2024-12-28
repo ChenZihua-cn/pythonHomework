@@ -1,13 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
+from matplotlib.animation import FuncAnimation, PillowWriter
 
 # Parameters
 m = 1.0  # Mass (kg)
 k = 10.0  # Spring constant (N/m)
 L0 = 1.0  # Natural length of springs (m)
 g = 9.8  # Gravity (m/s^2)
-F0 = 1.0  # External force amplitude (N)
+F0 = 100.0  # External force amplitude (N)
 omega = 1.0  # Frequency of external force (rad/s)
 t_max = 20  # Simulation time (s)
 dt = 0.01  # Time step (s)
@@ -37,11 +37,11 @@ def equations_of_motion(state, t):
     Fy_spring = (-k * (L1 - L0) * ((y + L0) / L1) - k * (L2 - L0) * ((y + L0) / L2))
 
     # External force
-    F_ext = F0 * np.cos(omega * t)  # External force in x-direction
+    F_ext = F0 * np.cos(omega * t)  # External force in y-direction
 
     # Accelerations
-    ax = (Fx_spring + F_ext) / m
-    ay = (Fy_spring - m * g) / m
+    ax = (Fx_spring ) / m
+    ay = (Fy_spring + F_ext - m * g) / m
     
     return [vx, vy, ax, ay]
 
@@ -58,7 +58,7 @@ x, y = solve_ode()
 # Visualization
 fig, ax = plt.subplots()
 ax.set_xlim(-2, 2)
-ax.set_ylim(-2, 0)
+ax.set_ylim(-2, 2)
 ax.set_aspect('equal')
 ax.grid(True)
 
@@ -74,5 +74,10 @@ def update(frame):
     return mass, spring1, spring2
 
 ani = FuncAnimation(fig, update, frames=len(t), interval=dt * 1000, blit=True)
+
+# Save animation as video
+writer = PillowWriter(fps=30)
+ani.save("v_spring_simulation.gif", writer=writer)
+
 plt.legend()
 plt.show()

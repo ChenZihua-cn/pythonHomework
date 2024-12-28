@@ -37,11 +37,11 @@ def equations_of_motion(state, t):
     Fy_spring = (-k * (L1 - L0) * ((y + L0) / L1) - k * (L2 - L0) * ((y + L0) / L2))
 
     # External force
-    F_ext = F0 * np.cos(omega * t)  # External force in x-direction
+    F_ext = F0 * np.cos(omega * t)  # External force in y-direction
 
     # Accelerations
-    ax = (Fx_spring + F_ext) / m
-    ay = (Fy_spring - m * g) / m
+    ax = (Fx_spring) / m
+    ay = (Fy_spring + F_ext - m * g) / m
     
     return [vx, vy, ax, ay]
 
@@ -57,7 +57,6 @@ x, y = solve_ode()
 
 # Visualization
 fig, ax = plt.subplots()
-ax.plot(t, x, label='X-Position')
 ax.plot(t, y, label='Y-Position')
 ax.set_xlabel('Time (s)')
 ax.set_ylabel('Displacement (m)')
